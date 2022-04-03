@@ -1,9 +1,13 @@
+import { Route, Switch } from "react-router-dom";
+import Landing from "./components/Landing";
 
 function App() {
   return (
-    <>
-      <h1>Hola mundo TS</h1>
-    </>
+    <div className=" bg-black m-0 p-2 flex justify-center items-center w-screen h-screen">
+      <Switch>
+        <Route exact path="/" component={Landing} />
+      </Switch>
+    </div>
   );
 }
 
