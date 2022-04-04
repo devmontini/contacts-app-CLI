@@ -10,8 +10,9 @@ const Landing = () => {
 
     useEffect(() => {
         dispatch(getPost())
-        console.log(post)
     }, [dispatch])
+
+    console.log(post)
 
     return (
         <div className="bg-gray-700 flex flex-col rounded-xl p-3 h-full w-full max-w-md justify-center items-center">
