@@ -1,30 +1,21 @@
 import axios from "axios";
 
 import {
-  ASD,
-  DSA
+  GET_POST
 } from "./const";
+
 
 const serverUrl = process.env.REACT_APP_SERVER_URL;
 
-export function getAsd() {
+export function getPost() {
   return async function (dispatch: any) {
-    const res = await axios.get(`${serverUrl}asd`);
+    const res = await axios.get(`${serverUrl}/post`);
     return dispatch({
-      type: ASD,
+      type: GET_POST,
       payload: res.data,
     });
   };
 }
 
-export function getDsa() {
-  return async function (dispatch: any) {
-    const res = await axios.get(`${serverUrl}asd`);
-    return dispatch({
-      type: ASD,
-      payload: res.data,
-    });
-  };
-}
 
 

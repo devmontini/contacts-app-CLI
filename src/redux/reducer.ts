@@ -1,23 +1,23 @@
 import {
-  ASD,
-  DSA
+  GET_POST,
+  ActionTypes
 } from "./const";
 
-const initialState = {
-  home: [],
+interface State {
+  post: string
+}
+
+const initialState: State = {
+  post: "",
 };
 
-function rootReducer(state = initialState, action: any) {
-  switch (action.type) {
-    case ASD:
-      return {
-        ...state,
-        home: action.payload,
-      };
 
-    case DSA:
+const actionReducer = (state = initialState, action: ActionTypes) => {
+  switch (action.type) {
+    case GET_POST:
       return {
         ...state,
+        post: action.payload,
       };
 
     default:
@@ -25,4 +25,4 @@ function rootReducer(state = initialState, action: any) {
   }
 }
 
-export default rootReducer;
+export default actionReducer

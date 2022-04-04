@@ -1,4 +1,9 @@
 //HOME
-export const ASD: string = "ASD";
-export const DSA: string = "DSA";
+export const GET_POST: string = "ASD";
 
+interface GetPost {
+    type: typeof GET_POST,
+    payload: any
+}
+
+export type ActionTypes = GetPost
