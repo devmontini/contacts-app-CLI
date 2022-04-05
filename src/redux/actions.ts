@@ -3,7 +3,7 @@ import axios from "axios";
 import {
   GET_POST,
   GET_USER,
-  BY_FOLLOWS,
+  GET_POST_FOLLOWS,
 } from "./const";
 
 
@@ -36,10 +36,13 @@ export function postPost(id: number, payload: any) {
   };
 }
 
-export function byFollows(payload: number) {
-  return {
-    type: BY_FOLLOWS,
-    payload,
+export function byFollows(id: number) {
+  return async function (dispatch: any) {
+    const res = await axios.get(`${serverUrl}/post/1`);
+    return dispatch({
+      type: GET_POST_FOLLOWS,
+      payload: res.data,
+    });
   };
 }
 

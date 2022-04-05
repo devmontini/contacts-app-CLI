@@ -17,13 +17,13 @@ const Post = () => {
   return (
     <div className="w-full h-full justify-center items-center">
       <FormPost />
-      <MenuPost id={123} />
+      <MenuPost id={1} />
       {post ? (
         post.map((el: any) => {
           return (
             <Cardpost
               key={el.id}
-              name={el.authorId}
+              name={el.name}
               title={el.title}
               content={el.content}
             />

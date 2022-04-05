@@ -4,8 +4,7 @@ export const GET_USER: string = "GET_USER";
 
 export const POST_POST: string = "POST_POST";
 
-export const BY_FOLLOWS: string = "BY_FOLLOWS"
-export const BY_ALLS: string = "BY_ALLS"
+export const GET_POST_FOLLOWS: string = "GET_POST_FOLLOWS"
 
 
 interface GetPost {
@@ -23,14 +22,10 @@ interface PostPost {
     payload?: null
 }
 
-interface ByFollows {
-    type: typeof BY_FOLLOWS,
+interface GetPostFollows {
+    type: typeof GET_POST_FOLLOWS,
     payload?: null
 }
 
-interface ByAlls {
-    type: typeof BY_ALLS,
-    payload?: null
-}
 
-export type ActionTypes = GetPost | GetUser | PostPost | ByAlls | ByFollows
+export type ActionTypes = GetPost | GetUser | PostPost | GetPostFollows

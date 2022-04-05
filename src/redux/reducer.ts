@@ -2,8 +2,7 @@ import {
   GET_POST,
   GET_USER,
   POST_POST,
-  BY_FOLLOWS,
-  BY_ALLS,
+  GET_POST_FOLLOWS,
   ActionTypes
 } from "./const";
 
@@ -39,7 +38,7 @@ const actionReducer = (state = initialState, action: ActionTypes) => {
         ...state,
       };
 
-    case BY_FOLLOWS:
+    case GET_POST_FOLLOWS:
       return {
         ...state,
         post: action.payload,
