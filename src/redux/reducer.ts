@@ -1,21 +1,34 @@
 import {
   GET_POST,
-  GET_USER,
   POST_POST,
   GET_POST_FOLLOWS,
+  GET_CONTACT,
+  GET_ALL_CONTACTS,
+  GET_PERFIL,
+  GET_USER,
+  DELETE_POST,
+  POST_USER,
+  POST_CONTACT,
+  GET_FOLLOW,
   ActionTypes
 } from "./const";
 
 interface State {
   post: string,
   postFollows: string,
-  user: string
+  contact: string,
+  perfil: string,
+  user: string,
+  follow: string,
 }
 
 const initialState: State = {
   post: "",
   postFollows: "",
-  user: ""
+  contact: "",
+  perfil: "",
+  user: "",
+  follow: ""
 };
 
 
@@ -27,12 +40,6 @@ const actionReducer = (state = initialState, action: ActionTypes) => {
         post: action.payload,
       };
 
-    case GET_USER:
-      return {
-        ...state,
-        user: action.payload,
-      };
-
     case POST_POST:
       return {
         ...state,
@@ -42,6 +49,51 @@ const actionReducer = (state = initialState, action: ActionTypes) => {
       return {
         ...state,
         post: action.payload,
+      };
+
+    case GET_CONTACT:
+      return {
+        ...state,
+        contact: action.payload,
+      };
+
+    case GET_ALL_CONTACTS:
+      return {
+        ...state,
+        contact: action.payload,
+      };
+
+    case GET_PERFIL:
+      return {
+        ...state,
+        perfil: action.payload,
+      };
+
+    case GET_USER:
+      return {
+        ...state,
+        user: action.payload,
+      };
+
+    case DELETE_POST:
+      return {
+        ...state,
+      };
+
+    case POST_USER:
+      return {
+        ...state,
+      };
+
+    case POST_CONTACT:
+      return {
+        ...state,
+      };
+
+    case GET_FOLLOW:
+      return {
+        ...state,
+        follow: action.payload,
       };
 
     default:

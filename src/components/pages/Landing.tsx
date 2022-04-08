@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getPost } from "../../redux/actions";
 import { AppState } from "../../redux/store";
-import Cardpost from "../modules/Cardpost";
+import Cardlanding from "../modules/Cardlanding";
+import LoginButton from "./private/assets/LogInButton";
 
 const Landing = () => {
   const dispatch = useDispatch();
@@ -19,9 +20,9 @@ const Landing = () => {
         {post ? (
           post.map((el: any) => {
             return (
-              <Cardpost
+              <Cardlanding
                 key={el.id}
-                name={el.authorId}
+                name={el.nameUser}
                 title={el.title}
                 content={el.content}
               />
@@ -31,13 +32,8 @@ const Landing = () => {
           <p>No post</p>
         )}
       </div>
-      <div className="bg-blue-700 p-2 w-full h-12 grid grid-cols-2 justify-center items-center">
-        <Link to="/post">
-          <button className="w-full">Login</button>
-        </Link>
-        <Link to="/post">
-          <button className="w-full">Guest</button>
-        </Link>
+      <div className="bg-blue-700 p-2 w-full h-12 justify-center items-center">
+        <LoginButton />
       </div>
     </div>
   );

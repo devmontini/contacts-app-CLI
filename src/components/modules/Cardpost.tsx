@@ -1,13 +1,18 @@
+import { Link } from "react-router-dom";
+
 type CardPops = {
+  id: number;
   name: number;
   title: string;
   content: string;
 };
 
-const Cardpost = ({ name, title, content }: CardPops) => {
+const Cardpost = ({ id, name, title, content }: CardPops) => {
   return (
     <div>
-      <p>{name}</p>
+      <Link to={`/contact/${id}`}>
+        <button>{name}</button>
+      </Link>
       <p>{title}</p>
       <p>{content}</p>
     </div>

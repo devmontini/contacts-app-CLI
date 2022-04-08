@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { postPost } from "../../redux/actions";
+import { useAuth0 } from "@auth0/auth0-react";
 
 type Data1 = {
   target: {
@@ -10,6 +11,7 @@ type Data1 = {
 };
 
 const FormPost = () => {
+  const { user } = useAuth0();
   const dispatch = useDispatch();
   const [input, setInput] = useState({
     title: "",
@@ -18,7 +20,7 @@ const FormPost = () => {
 
   function handleSubmit(e: any) {
     e.preventDefault();
-    dispatch(postPost(1, input));
+    dispatch(postPost(user?.email, input));
     setInput({
       title: "",
       content: "",

@@ -1,45 +1,43 @@
 import { useDispatch } from "react-redux";
-import { getPostFollows, getPost } from "../../redux/actions";
+import { getContact, getAllUser } from "../../redux/actions";
 
 type Data1 = {
   id: any;
 };
-
-const MenuPost = ({ id }: Data1) => {
+const MenuContact = ({ id }: Data1) => {
   const dispatch = useDispatch();
 
-  function handleFilterById(e: any) {
+  function handleAllContacts(e: any) {
     e.preventDefault();
-    dispatch(getPostFollows(e.target.value));
+    dispatch(getAllUser());
   }
 
-  function handleFilterAll(e: any) {
+  function handleMyContacts(e: any) {
     e.preventDefault();
-    dispatch(getPost());
+    dispatch(getContact(e.target.value));
   }
-
   return (
     <div className="bg-gray-700 p-2 w-full h-9 grid grid-cols-2 justify-center items-center">
       <div>
         <button
-          onClick={(e) => handleFilterAll(e)}
-          value="all"
+          onClick={(e) => handleMyContacts(e)}
+          value={id}
           className="w-full"
         >
-          All
+          My Contacts
         </button>
       </div>
       <div>
         <button
-          onClick={(e) => handleFilterById(e)}
-          value={id}
+          onClick={(e) => handleAllContacts(e)}
+          value="all"
           className="w-full"
         >
-          Following
+          All contacts
         </button>
       </div>
     </div>
   );
 };
 
-export default MenuPost;
+export default MenuContact;
