@@ -60,7 +60,7 @@ export function getContact(id: any) {
   };
 }
 
-export function GetPerfil(id: any) {
+export function getPerfil(id: any) {
   return async function (dispatch: any) {
     const res = await axios.get(`${serverUrl}/perfil/${id}`)
     return dispatch({
@@ -110,9 +110,9 @@ export function deleteContact(payload: any) {
 }
 
 export function getFollowContact(payload: any) {
-  console.log(payload)
+  console.log(payload);
   return async function (dispatch: any) {
-    const res = await axios.get(`${serverUrl}/contact`, payload);
+    const res = await axios.get(`${serverUrl}/follow`, payload);
     return dispatch({
       type: GET_FOLLOW,
       payload: res.data,

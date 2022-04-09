@@ -17,6 +17,10 @@ const User = (props: any) => {
   const follow = useSelector((state: AppState) => state.actionReducer.follow);
   const ids = props.match.params.id;
   const [loading, setLoading] = useState(true);
+  const [input, setInput] = useState({
+    auth: user?.email,
+    id: perfil.auth,
+  });
 
   useEffect(() => {
     async function loadProducts() {
@@ -24,20 +28,22 @@ const User = (props: any) => {
 
       setTimeout(() => {
         setLoading(false);
-      }, 2000);
+      }, 1500);
     }
     loadProducts();
+  }, []);
 
-    // async function loadProducts2() {
-    //   const payload = { auth: user?.email, id: perfil.auth };
-    //   await dispatch(getFollowContact(payload));
+  // useEffect(() => {
+  //   async function loadProducts2() {
+  //     const payload = { auth: user?.email, id: perfil.auth };
+  //     await dispatch(getFollowContact(payload));
 
-    //   setTimeout(() => {
-    //     setLoading(false);
-    //   }, 2000);
-    // }
-    // loadProducts2();
-  }, [perfil.auth]);
+  //     setTimeout(() => {
+  //       setLoading(false);
+  //     }, 2500);
+  //   }
+  //   loadProducts2();
+  // }, [perfil.auth]);
 
   if (loading) {
     return (
@@ -60,8 +66,11 @@ const User = (props: any) => {
 
   function handlePrueba(e: any) {
     e.preventDefault();
-    const payload = { auth: user?.email, id: perfil.auth };
-    dispatch(getFollowContact(payload));
+    dispatch(getFollowContact(input));
+    setInput({
+      auth: user?.email,
+      id: perfil.auth,
+    });
   }
 
   const post = perfil.post;

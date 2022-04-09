@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
-import { GetPerfil } from "../../../redux/actions";
+import { getPerfil } from "../../../redux/actions";
 import { AppState } from "../../../redux/store";
 import { useHistory } from "react-router-dom";
 
@@ -14,7 +14,7 @@ const Status = () => {
 
   useEffect(() => {
     async function loadProducts() {
-      await dispatch(GetPerfil(user?.email));
+      await dispatch(getPerfil(user?.email));
 
       setTimeout(() => {
         setLoading(false);

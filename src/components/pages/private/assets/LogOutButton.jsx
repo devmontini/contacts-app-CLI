@@ -1,20 +1,20 @@
-import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { CgLogOut } from "react-icons/cg";
 
 const LogoutButton = () => {
   const { logout } = useAuth0();
   return (
-    <button
-      className="btn  btn-danger btn-block "
-      onClick={() =>
-        logout({
-          returnTo: window.location.origin,
-        })
-      }
-    >
-      <CgLogOut className="text-em4 md:text-em1_5" />
-    </button>
+    <div className="bg-gray-700 p-2 w-full h-9 flex justify-center items-center">
+      <button
+        className="w-full h-full flex m-0 justify-center items-center"
+        onClick={() =>
+          logout({
+            returnTo: window.location.origin,
+          })
+        }
+      >
+        LogOut
+      </button>
+    </div>
   );
 };
 
