@@ -3,7 +3,9 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
 import { getPerfil } from "../../../redux/actions";
 import { AppState } from "../../../redux/store";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import Perfil from "./Perfil";
+import Form from "./Form";
 
 const Status = () => {
   const dispatch = useDispatch();
@@ -13,25 +15,21 @@ const Status = () => {
   const perfil = useSelector((state: AppState) => state.actionReducer.perfil);
 
   useEffect(() => {
-    async function loadProducts() {
-      await dispatch(getPerfil(user?.email));
+    dispatch(getPerfil(user?.email));
 
+    function loadProducts() {
       setTimeout(() => {
-        setLoading(false);
-      }, 1500);
+        if (perfil === undefined || null) {
+          history.push("/form");
+        } else {
+          history.push("/post");
+        }
+      }, 2000);
     }
-    console.log(user?.email);
     loadProducts();
-    if (perfil) {
-      history.push("/post");
-    } else {
-      history.push("/form");
-    }
-  });
+  }, [perfil.length]);
 
-  if (loading) {
-    return <div>Loading ...</div>;
-  }
+  return <div>Loading ...</div>;
 };
 
 export default Status;
