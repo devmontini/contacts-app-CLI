@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import { getPost } from "../../redux/actions";
 import { AppState } from "../../redux/store";
 import Cardlanding from "../modules/Cardlanding";
@@ -17,7 +16,7 @@ const Landing = () => {
   return (
     <div className="bg-gray-700 flex flex-col rounded-xl p-3 h-full w-full max-w-md">
       <div className="no-scrollbar bg-slate-500 h-full w-full overflow-x-auto">
-        {post ? (
+        {post.length > 0 ? (
           post.map((el: any) => {
             return (
               <Cardlanding

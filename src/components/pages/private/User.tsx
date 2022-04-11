@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   deleteContact,
-  getFollowContact,
+  getFollowers,
+  getPerfil,
   getUser,
   postContact,
 } from "../../../redux/actions";
@@ -13,97 +14,71 @@ import Cardpost from "../../modules/Cardpost";
 const User = (props: any) => {
   const dispatch = useDispatch();
   const { user } = useAuth0();
-  const perfil = useSelector((state: AppState) => state.actionReducer.user);
+  const users = useSelector((state: AppState) => state.actionReducer.user);
+  const perfil = useSelector((state: AppState) => state.actionReducer.perfil);
   const follow = useSelector((state: AppState) => state.actionReducer.follow);
   const ids = props.match.params.id;
   const [loading, setLoading] = useState(true);
-  const [input, setInput] = useState({
-    auth: user?.email,
-    id: perfil.auth,
-  });
 
   useEffect(() => {
-    async function loadProducts() {
-      await dispatch(getUser(ids));
-
+    dispatch(getUser(ids));
+    dispatch(getPerfil(user?.email));
+    function loadProducts() {
       setTimeout(() => {
+        dispatch(getFollowers(users.id, perfil.id));
         setLoading(false);
-      }, 1500);
+      }, 2000);
     }
     loadProducts();
   }, []);
 
-  // useEffect(() => {
-  //   async function loadProducts2() {
-  //     const payload = { auth: user?.email, id: perfil.auth };
-  //     await dispatch(getFollowContact(payload));
-
-  //     setTimeout(() => {
-  //       setLoading(false);
-  //     }, 2500);
-  //   }
-  //   loadProducts2();
-  // }, [perfil.auth]);
-
-  if (loading) {
-    return (
-      <div className="w-full h-full justify-center items-center">
-        Loading...
-      </div>
-    );
-  }
-
   function handleChange(e: any) {
     e.preventDefault();
-    const asd = { auth: perfil.auth };
-    dispatch(postContact(user?.email, asd));
+    dispatch(postContact(users.id, perfil.id));
   }
 
   function handleDelete(e: any) {
     e.preventDefault();
-    dispatch(deleteContact(follow.id));
+    dispatch(deleteContact(follow[0].id));
   }
-
-  function handlePrueba(e: any) {
-    e.preventDefault();
-    dispatch(getFollowContact(input));
-    setInput({
-      auth: user?.email,
-      id: perfil.auth,
-    });
-  }
-
-  const post = perfil.post;
-
+  const post = users.post;
+  console.log(follow);
   return (
     <div className="w-full h-full justify-center items-center">
-      <div>
-        <p>{perfil.name}</p>
-        <p>{perfil.description}</p>
-        <button onClick={(e) => handlePrueba(e)}>LALALAL</button>
-        {follow.followed === true ? (
-          <button onClick={(e) => handleDelete(e)}>Diss</button>
-        ) : (
-          <button onClick={(e) => handleChange(e)}>Follow</button>
-        )}
-      </div>
-      <div>
-        {perfil.post ? (
-          post.map((el: any) => {
-            return (
-              <Cardpost
-                key={el.id}
-                name={el.nameUser}
-                title={el.title}
-                content={el.content}
-                id={el.id}
-              />
-            );
-          })
-        ) : (
-          <p>No post</p>
-        )}
-      </div>
+      {loading ? (
+        <div className="w-full h-full justify-center items-center">
+          Loading...
+        </div>
+      ) : (
+        <>
+          <div>
+            <p>{users.name}</p>
+            <p>{users.description}</p>
+            {follow.length > 0 ? (
+              <button onClick={(e) => handleDelete(e)}>Diss</button>
+            ) : (
+              <button onClick={(e) => handleChange(e)}>Follow</button>
+            )}
+          </div>
+          <div>
+            {post.length !== 0 ? (
+              post.map((el: any) => {
+                return (
+                  <Cardpost
+                    key={el.id}
+                    name={el.nameUser}
+                    title={el.title}
+                    content={el.content}
+                    id={el.id}
+                  />
+                );
+              })
+            ) : (
+              <p>No post</p>
+            )}
+          </div>
+        </>
+      )}
     </div>
   );
 };

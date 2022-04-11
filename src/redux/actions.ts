@@ -6,12 +6,24 @@ import {
   GET_POST_FOLLOWS,
   GET_CONTACT,
   GET_PERFIL,
+  GET_FOLLOW_USER,
   GET_FOLLOW,
   GET_USER
 } from "./const";
 
 
 const serverUrl = process.env.REACT_APP_SERVER_URL;
+
+export function getFollowUser(payload: any) {
+  console.log(payload)
+  return async function (dispatch: any) {
+    const res = await axios.get(`${serverUrl}/user`, payload);
+    return dispatch({
+      type: GET_FOLLOW_USER,
+      payload: res.data,
+    });
+  };
+}
 
 export function getPost() {
   return async function (dispatch: any) {
@@ -95,32 +107,26 @@ export function postUser(payload: any) {
 }
 
 export function postContact(id: any, auth: any) {
-
+  console.log(id, auth)
   return async function () {
-    const res = await axios.post(`${serverUrl}/contact/${id}`, auth);
+    const res = await axios.post(`${serverUrl}/contact/${id}/${auth}`);
     return res.data
   };
 }
 
-export function deleteContact(payload: any) {
+export function deleteContact(id: any) {
   return async function () {
-    const res = await axios.post(`${serverUrl}/contact`, payload);
+    const res = await axios.delete(`${serverUrl}/contact/${id}`);
     return res.data
   };
 }
 
-export function getFollowContact(payload: any) {
-  console.log(payload);
+export function getFollowers(id: any, auth: any) {
   return async function (dispatch: any) {
-    const res = await axios.get(`${serverUrl}/follow`, payload);
+    const res = await axios.get(`${serverUrl}/follow/${id}/${auth}`);
     return dispatch({
       type: GET_FOLLOW,
       payload: res.data,
     });
-  };
+  }
 }
-
-
-
-
-

@@ -40,6 +40,12 @@ const actionReducer = (state = initialState, action: ActionTypes) => {
         post: action.payload,
       };
 
+    case GET_FOLLOW:
+      return {
+        ...state,
+        follow: action.payload
+      }
+
     case POST_POST:
       return {
         ...state,
@@ -88,12 +94,6 @@ const actionReducer = (state = initialState, action: ActionTypes) => {
     case POST_CONTACT:
       return {
         ...state,
-      };
-
-    case GET_FOLLOW:
-      return {
-        ...state,
-        follow: action.payload,
       };
 
     default:

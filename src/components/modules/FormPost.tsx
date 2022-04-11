@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { postPost } from "../../redux/actions";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useHistory } from "react-router-dom";
 
 type Data1 = {
   target: {
@@ -11,6 +12,7 @@ type Data1 = {
 };
 
 const FormPost = () => {
+  const history = useHistory();
   const { user } = useAuth0();
   const dispatch = useDispatch();
   const [input, setInput] = useState({
@@ -25,6 +27,7 @@ const FormPost = () => {
       title: "",
       content: "",
     });
+    history.push("/post");
   }
 
   function handleChange(e: Data1) {

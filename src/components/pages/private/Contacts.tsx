@@ -21,7 +21,7 @@ const Contacts = () => {
     <div className="w-full h-full justify-center items-center">
       <Searchbar />
       <MenuContact id={id} />
-      {contact ? (
+      {contact.length > 0 ? (
         contact.map((el: any) => {
           return (
             <Cardcontact
@@ -33,7 +33,7 @@ const Contacts = () => {
           );
         })
       ) : (
-        <p>No contactos</p>
+        <p>No contats</p>
       )}
     </div>
   );

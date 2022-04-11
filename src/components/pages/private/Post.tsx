@@ -15,9 +15,8 @@ const Post = () => {
   const id = user?.email;
 
   useEffect(() => {
-    async function loadProducts() {
-      await dispatch(getPost());
-
+    dispatch(getPost());
+    function loadProducts() {
       setTimeout(() => {
         setLoading(false);
       }, 1500);
@@ -26,21 +25,15 @@ const Post = () => {
     loadProducts();
   }, [dispatch]);
 
-  if (loading) {
-    return (
-      <div className="w-full h-full justify-center items-center">
-        Loading...
-      </div>
-    );
-  }
-
   return (
     <div className="w-full h-full justify-center items-center">
       <FormPost />
       <MenuPost id={id} />
-      {post === 0 ? (
-        <p>No post</p>
-      ) : (
+      {loading ? (
+        <div className="w-full h-full justify-center items-center">
+          Loading...
+        </div>
+      ) : post.length > 0 ? (
         post.map((el: any) => {
           return (
             <Cardpost
@@ -52,6 +45,8 @@ const Post = () => {
             />
           );
         })
+      ) : (
+        <p>No post</p>
       )}
     </div>
   );

@@ -16,7 +16,7 @@ const Auth0ProviderWithHistory = ({ children }) => {
     <Auth0Provider
       domain={domain}
       clientId={clientId}
-      redirectUri={`${window.location.origin}/status`}
+      redirectUri={`${window.location.origin}/perfil`}
       onRedirectCallback={onRedirectCallback}
       audience={audience}
     >
