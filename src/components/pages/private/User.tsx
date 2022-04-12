@@ -24,13 +24,13 @@ const User = (props: any) => {
     dispatch(getUser(ids));
     dispatch(getPerfil(user?.email));
     function loadProducts() {
-      dispatch(getFollowers(ids, perfil.id));
+      dispatch(getFollowers(ids, user?.email));
       setTimeout(() => {
         setLoading(false);
       }, 2000);
     }
     loadProducts();
-  }, [dispatch, ids]);
+  }, [dispatch, ids, user?.email]);
 
   function handleChange(e: any) {
     e.preventDefault();

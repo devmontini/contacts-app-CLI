@@ -107,7 +107,6 @@ export function postUser(payload: any) {
 }
 
 export function postContact(id: any, auth: any) {
-  console.log(id, auth)
   return async function () {
     const res = await axios.post(`${serverUrl}/contact/${id}/${auth}`);
     return res.data
