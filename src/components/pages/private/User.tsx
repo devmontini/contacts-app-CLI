@@ -24,13 +24,13 @@ const User = (props: any) => {
     dispatch(getUser(ids));
     dispatch(getPerfil(user?.email));
     function loadProducts() {
+      dispatch(getFollowers(ids, perfil.id));
       setTimeout(() => {
-        dispatch(getFollowers(users.id, perfil.id));
         setLoading(false);
       }, 2000);
     }
     loadProducts();
-  }, []);
+  }, [dispatch, ids]);
 
   function handleChange(e: any) {
     e.preventDefault();
@@ -42,7 +42,6 @@ const User = (props: any) => {
     dispatch(deleteContact(follow[0].id));
   }
   const post = users.post;
-  console.log(follow);
   return (
     <div className="w-full h-full justify-center items-center">
       {loading ? (
