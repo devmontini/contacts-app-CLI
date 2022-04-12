@@ -14,8 +14,8 @@ const Landing = () => {
   }, [dispatch]);
 
   return (
-    <div className="bg-gray-700 flex flex-col rounded-xl p-3 h-full w-full max-w-md">
-      <div className="no-scrollbar bg-slate-500 h-full w-full overflow-x-auto">
+    <div className="bg-gray-900 flex flex-col rounded-xl p-3 h-full w-full max-w-md">
+      <div className="no-scrollbar p-2 rounded-t-lg bg-slate-700 h-full w-full overflow-x-auto">
         {post.length > 0 ? (
           post.map((el: any) => {
             return (
@@ -31,7 +31,7 @@ const Landing = () => {
           <p>No post</p>
         )}
       </div>
-      <div className="bg-blue-700 p-2 w-full h-12 justify-center items-center">
+      <div className="bg-gray-900 border-t-2 border-solid border-black rounded-b-lg p-2 w-full h-12 justify-center items-center">
         <LoginButton />
       </div>
     </div>

@@ -12,9 +12,14 @@ const Contacts = () => {
   const dispatch = useDispatch();
   const contact = useSelector((state: AppState) => state.actionReducer.contact);
   const id = user?.email;
+  const { getAccessTokenSilently } = useAuth0();
 
   useEffect(() => {
-    dispatch(getContact(id));
+    async function loadProducts() {
+      const token = await getAccessTokenSilently();
+      dispatch(getContact(id, token));
+    }
+    loadProducts();
   }, [dispatch, id]);
 
   return (
@@ -33,7 +38,9 @@ const Contacts = () => {
           );
         })
       ) : (
-        <p>No contats</p>
+        <div className=" flex justify-center items-center">
+          <p>No contacts</p>
+        </div>
       )}
     </div>
   );

@@ -7,13 +7,14 @@ import FormPost from "../../modules/FormPost";
 import { useAuth0 } from "@auth0/auth0-react";
 import LogoutButton from "./assets/LogOutButton";
 import { useHistory } from "react-router-dom";
+import Loader from "./assets/Loader";
 
 const Perfil = () => {
   const dispatch = useDispatch();
   let history = useHistory();
   const perfil = useSelector((state: AppState) => state.actionReducer.perfil);
   const [loading, setLoading] = useState(true);
-  const { user } = useAuth0();
+  const { user, getAccessTokenSilently } = useAuth0();
   const [input, setInput] = useState({
     auth: user?.email,
     name: "",
@@ -22,8 +23,9 @@ const Perfil = () => {
   const id = user?.email;
 
   useEffect(() => {
-    dispatch(getPerfil(id));
-    function loadProducts() {
+    async function loadProducts() {
+      const token = await getAccessTokenSilently();
+      dispatch(getPerfil(id, token));
       setTimeout(() => {
         setLoading(false);
       }, 1500);
@@ -33,7 +35,11 @@ const Perfil = () => {
 
   function handleSubmit(e: any) {
     e.preventDefault();
-    dispatch(postUser(input));
+    async function loadProducts() {
+      const token = await getAccessTokenSilently();
+      dispatch(postUser(input, token));
+    }
+    loadProducts();
     setInput({ auth: user?.email, name: "", description: "" });
     history.push("/post");
   }
@@ -48,58 +54,66 @@ const Perfil = () => {
   return (
     <div className="w-full h-full justify-center items-center">
       {perfil === null ? (
-        <div className="no-scrollbar bg-slate-500 h-full w-full overflow-x-auto">
-          <div className="w-full h-full justify-center items-center">
-            <form onSubmit={(e) => handleSubmit(e)}>
-              <input
-                type="text"
-                name="name"
-                value={input.name}
-                onChange={(e) => handleChange(e)}
-              />
-              <textarea
-                name="description"
-                value={input.description}
-                onChange={(e) => handleChange(e)}
-              />
-              <button type="submit">Send</button>
-            </form>
-          </div>
+        <div className="p-2 bg-gray-900 rounded-lg">
+          <form
+            className="flex flex-col rounded-xl"
+            onSubmit={(e) => handleSubmit(e)}
+          >
+            <input
+              type="text"
+              name="name"
+              placeholder="Name"
+              value={input.name}
+              onChange={(e) => handleChange(e)}
+              className="m-1  rounded-lg"
+            />
+            <textarea
+              name="description"
+              placeholder="Description"
+              value={input.description}
+              onChange={(e) => handleChange(e)}
+              className="m-1 rounded-lg"
+            />
+            <button type="submit" className="active:bg-gray-800">
+              Send
+            </button>
+          </form>
         </div>
       ) : (
         <>
-          {" "}
-          <div>
-            <LogoutButton />
-          </div>
-          <div>
-            <p>{perfil.name}</p>
-            <p>{perfil.description}</p>
+          <div className="p-2 bg-gray-900 rounded-lg mb-2">
+            <div>
+              <div className="flex w-full justify-center items-center">
+                <p className="w-full pl-4 ">{perfil.name}</p>
+                <LogoutButton />
+              </div>
+              <p className="p-4">{perfil.description}</p>
+            </div>
           </div>
           <FormPost />
-          <div className="w-full h-full justify-center">
-            <div className="no-scrollbar bg-slate-500 h-full w-full overflow-x-auto">
-              {loading ? (
-                <div className="w-full h-full justify-center items-center">
-                  Loading...
-                </div>
-              ) : perfil.post.length > 0 ? (
-                perfil.post.map((el: any) => {
-                  return (
-                    <Cardperfil
-                      key={el.id}
-                      id={el.id}
-                      name={el.nameUser}
-                      title={el.title}
-                      content={el.content}
-                      idModal={el.id}
-                    />
-                  );
-                })
-              ) : (
+          <div>
+            {loading ? (
+              <div className="w-full h-full justify-center items-center">
+                <Loader />
+              </div>
+            ) : perfil.post.length > 0 ? (
+              perfil.post.map((el: any) => {
+                return (
+                  <Cardperfil
+                    key={el.id}
+                    id={el.id}
+                    name={el.nameUser}
+                    title={el.title}
+                    content={el.content}
+                    idModal={el.id}
+                  />
+                );
+              })
+            ) : (
+              <div className=" flex justify-center items-center">
                 <p>No post</p>
-              )}
-            </div>
+              </div>
+            )}
           </div>
         </>
       )}

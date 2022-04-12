@@ -9,6 +9,7 @@ import {
   DELETE_POST,
   POST_USER,
   POST_CONTACT,
+  GET_NAME_COUNTRY,
   GET_FOLLOW,
   ActionTypes
 } from "./const";
@@ -44,6 +45,12 @@ const actionReducer = (state = initialState, action: ActionTypes) => {
       return {
         ...state,
         follow: action.payload
+      }
+
+    case GET_NAME_COUNTRY:
+      return {
+        ...state,
+        contact: action.payload,
       }
 
     case POST_POST:

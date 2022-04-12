@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { getPost } from "../../../redux/actions";
 import { AppState } from "../../../redux/store";
 import Cardpost from "../../modules/Cardpost";
-import FormPost from "../../modules/FormPost";
 import MenuPost from "../../modules/MenuPost";
 import { useAuth0 } from "@auth0/auth0-react";
+import Loader from "./assets/Loader";
 
 const Post = () => {
   const dispatch = useDispatch();
@@ -27,11 +27,10 @@ const Post = () => {
 
   return (
     <div className="w-full h-full justify-center items-center">
-      <FormPost />
       <MenuPost id={id} />
       {loading ? (
         <div className="w-full h-full justify-center items-center">
-          Loading...
+          <Loader />
         </div>
       ) : post.length > 0 ? (
         post.map((el: any) => {
@@ -46,7 +45,9 @@ const Post = () => {
           );
         })
       ) : (
-        <p>No post</p>
+        <div className=" flex justify-center items-center">
+          <p>No post</p>
+        </div>
       )}
     </div>
   );

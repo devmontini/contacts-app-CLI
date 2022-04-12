@@ -10,8 +10,13 @@ export const DELETE_POST: string = "DELETE_POST"
 export const POST_USER: string = "POST_USER"
 export const POST_CONTACT: string = "POST_CONTACT"
 export const DELETE_CONTACT: string = "DELETE_CONTACT"
-export const GET_FOLLOW_USER: string = "GET_FOLLOW_USER"
 export const GET_FOLLOW: string = "GET_FOLLOW"
+export const GET_NAME_COUNTRY: string = "GET_NAME_COUNTRY"
+
+interface GetNameCountry {
+    type: typeof GET_NAME_COUNTRY,
+    payload: any
+}
 
 interface GetFollow {
     type: typeof GET_FOLLOW,
@@ -74,4 +79,4 @@ interface deleteContact {
 
 
 
-export type ActionTypes = deleteContact | PostContact | GetPost | PostUser | GetPerfil | DeletePost | PostPost | GetPostFollows | GetContact | GetAllContacts | GetUser | GetFollow
+export type ActionTypes = deleteContact | GetNameCountry | PostContact | GetPost | PostUser | GetPerfil | DeletePost | PostPost | GetPostFollows | GetContact | GetAllContacts | GetUser | GetFollow

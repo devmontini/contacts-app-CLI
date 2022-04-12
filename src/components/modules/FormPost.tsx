@@ -13,7 +13,7 @@ type Data1 = {
 
 const FormPost = () => {
   const history = useHistory();
-  const { user } = useAuth0();
+  const { user, getAccessTokenSilently } = useAuth0();
   const dispatch = useDispatch();
   const [input, setInput] = useState({
     title: "",
@@ -22,7 +22,11 @@ const FormPost = () => {
 
   function handleSubmit(e: any) {
     e.preventDefault();
-    dispatch(postPost(user?.email, input));
+    async function loadProducts() {
+      const token = await getAccessTokenSilently();
+      dispatch(postPost(user?.email, input, token));
+    }
+    loadProducts();
     setInput({
       title: "",
       content: "",
@@ -38,9 +42,9 @@ const FormPost = () => {
   }
 
   return (
-    <>
+    <div className="p-2 bg-gray-900 rounded-lg">
       <form
-        className="flex flex-col"
+        className="flex flex-col rounded-xl"
         action=""
         onSubmit={(e) => handleSubmit(e)}
       >
@@ -49,16 +53,20 @@ const FormPost = () => {
           value={input.title}
           onChange={(e) => handleChange(e)}
           placeholder="Title"
+          className="m-1  rounded-lg"
         />
         <textarea
           name="content"
           value={input.content}
           onChange={(e) => handleChange(e)}
           placeholder="Content"
+          className="m-1 rounded-lg"
         />
-        <button type="submit">Send</button>
+        <button type="submit" className="active:bg-gray-800">
+          Send
+        </button>
       </form>
-    </>
+    </div>
   );
 };
 

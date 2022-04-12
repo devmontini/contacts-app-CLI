@@ -14,8 +14,8 @@ function App() {
       <Switch>
         <Route exact path="/" component={Landing} />
         <Fragment>
-          <div className="bg-gray-700 flex flex-col rounded-xl p-3 h-full w-full max-w-md">
-            <div className="no-scrollbar bg-slate-500 h-full w-full overflow-x-auto">
+          <div className="bg-gray-900 flex flex-col rounded-lg p-3 h-full w-full max-w-md">
+            <div className="no-scrollbar bg-slate-700 rounded-t-lg p-2  h-full w-full overflow-x-auto">
               <ProtectedRoute exact path="/post" component={Post} />
               <ProtectedRoute exact path="/contacts" component={Contacts} />
               <ProtectedRoute exact path="/contact/:id" component={User} />

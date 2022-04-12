@@ -1,19 +1,16 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  deleteContact,
-  getFollowers,
-  getPerfil,
-  getUser,
-  postContact,
-} from "../../../redux/actions";
+import { getFollowers, getPerfil, getUser } from "../../../redux/actions";
 import { AppState } from "../../../redux/store";
 import { useAuth0 } from "@auth0/auth0-react";
 import Cardpost from "../../modules/Cardpost";
+import ButonUnfollow from "../../modules/ButonUnfollow";
+import ButonFollow from "../../modules/ButonFollow";
+import Loader from "./assets/Loader";
 
 const User = (props: any) => {
   const dispatch = useDispatch();
-  const { user } = useAuth0();
+  const { user, getAccessTokenSilently } = useAuth0();
   const users = useSelector((state: AppState) => state.actionReducer.user);
   const perfil = useSelector((state: AppState) => state.actionReducer.perfil);
   const follow = useSelector((state: AppState) => state.actionReducer.follow);
@@ -21,10 +18,11 @@ const User = (props: any) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    dispatch(getUser(ids));
-    dispatch(getPerfil(user?.email));
-    function loadProducts() {
-      dispatch(getFollowers(ids, user?.email));
+    async function loadProducts() {
+      const token: any = await getAccessTokenSilently();
+      dispatch(getUser(ids, token));
+      dispatch(getPerfil(user?.email, token));
+      dispatch(getFollowers(ids, user?.email, token));
       setTimeout(() => {
         setLoading(false);
       }, 2000);
@@ -32,32 +30,28 @@ const User = (props: any) => {
     loadProducts();
   }, [dispatch, ids, user?.email]);
 
-  function handleChange(e: any) {
-    e.preventDefault();
-    dispatch(postContact(users.id, perfil.id));
-  }
-
-  function handleDelete(e: any) {
-    e.preventDefault();
-    dispatch(deleteContact(follow[0].id));
-  }
   const post = users.post;
+
   return (
     <div className="w-full h-full justify-center items-center">
       {loading ? (
         <div className="w-full h-full justify-center items-center">
-          Loading...
+          <Loader />
         </div>
       ) : (
         <>
-          <div>
-            <p>{users.name}</p>
-            <p>{users.description}</p>
-            {follow.length > 0 ? (
-              <button onClick={(e) => handleDelete(e)}>Diss</button>
-            ) : (
-              <button onClick={(e) => handleChange(e)}>Follow</button>
-            )}
+          <div className="p-2 bg-gray-900 rounded-lg mb-2">
+            <div className="flex w-full my-2">
+              <p className="w-full font-medium text-lg pl-2">{users.name}</p>
+              {follow.length > 0 ? (
+                <ButonUnfollow followId={follow[0].id} />
+              ) : (
+                <ButonFollow userId={users.id} perfilId={perfil.id} />
+              )}
+            </div>
+            <p className=" font-normal text-base pl-4 mt-1">
+              {users.description}
+            </p>
           </div>
           <div>
             {post.length !== 0 ? (
@@ -73,7 +67,9 @@ const User = (props: any) => {
                 );
               })
             ) : (
-              <p>No post</p>
+              <div className=" flex justify-center items-center">
+                <p>No post</p>
+              </div>
             )}
           </div>
         </>
