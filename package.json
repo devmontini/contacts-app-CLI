@@ -1,5 +1,6 @@
 {
-  "name": "client",
+  "name": "contacts-app",
+  "author": "Montini Franco",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
