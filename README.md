@@ -31,7 +31,7 @@
 
 ### Proyecto de actividades turísticas!
 - Single Page Application (SPA), BD & API.
-- A mini DB for a twitter app, 
+- A mini DB for a twitter app, post mesagges, follow and unfollow friends, filther ppost by follows, search contacts & more.
 - Tecnologías:<br />
     Front => TypeScript, React, Redux, JavaScript, Auth0, HTML<br />
     Style => Tailwind, CSS<br />
