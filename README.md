@@ -31,9 +31,9 @@
 
 ### Proyecto de actividades turísticas!
 - Single Page Application (SPA), BD & API.
-- Search countries, add activities, sort, fither.
+- A mini DB for a twitter app, 
 - Tecnologías:<br />
-    Front => React, Redux, JavaScript, HTML<br />
+    Front => TypeScript, React, Redux, JavaScript, Auth0, HTML<br />
     Style => Tailwind, CSS<br />
     Back => https://github.com/devmontini/contacts-app-API
     
